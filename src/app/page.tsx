@@ -1,69 +1,102 @@
-import Link from "next/link";
+import Image from "next/image";
 
-import { LatestPost } from "@/app/_components/post";
-import { auth } from "@/server/auth";
-import { api, HydrateClient } from "@/trpc/server";
 
-export default async function Home() {
-  const hello = await api.post.hello({ text: "from tRPC" });
-  const session = await auth();
-
-  if (session?.user) {
-    void api.post.getLatest.prefetch();
-  }
-
+export default function Home() {
   return (
-    <HydrateClient>
-      <main className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-[#2e026d] to-[#15162c] text-white">
-        <div className="container flex flex-col items-center justify-center gap-12 px-4 py-16">
-          <h1 className="text-5xl font-extrabold tracking-tight sm:text-[5rem]">
-            Create <span className="text-[hsl(280,100%,70%)]">T3</span> App
-          </h1>
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:gap-8">
-            <Link
-              className="flex max-w-xs flex-col gap-4 rounded-xl bg-white/10 p-4 hover:bg-white/20"
-              href="https://create.t3.gg/en/usage/first-steps"
-              target="_blank"
-            >
-              <h3 className="text-2xl font-bold">First Steps →</h3>
-              <div className="text-lg">
-                Just the basics - Everything you need to know to set up your
-                database and authentication.
-              </div>
-            </Link>
-            <Link
-              className="flex max-w-xs flex-col gap-4 rounded-xl bg-white/10 p-4 hover:bg-white/20"
-              href="https://create.t3.gg/en/introduction"
-              target="_blank"
-            >
-              <h3 className="text-2xl font-bold">Documentation →</h3>
-              <div className="text-lg">
-                Learn more about Create T3 App, the libraries it uses, and how
-                to deploy it.
-              </div>
-            </Link>
-          </div>
-          <div className="flex flex-col items-center gap-2">
-            <p className="text-2xl text-white">
-              {hello ? hello.greeting : "Loading tRPC query..."}
-            </p>
+    
+    <div className="container mx-auto p-4 md:p-8">
+      <div className="max-w-3xl mx-auto">
+        
+        <h1 className="text-4xl font-bold mb-2">Your Love</h1>
+        <h4 className="text-xl text-gray-400 mb-4">Song by The Outfield</h4>
 
-            <div className="flex flex-col items-center justify-center gap-4">
-              <p className="text-center text-2xl text-white">
-                {session && <span>Logged in as {session.user?.name}</span>}
-              </p>
-              <Link
-                href={session ? "/api/auth/signout" : "/api/auth/signin"}
-                className="rounded-full bg-white/10 px-10 py-3 font-semibold no-underline transition hover:bg-white/20"
-              >
-                {session ? "Sign out" : "Sign in"}
-              </Link>
-            </div>
-          </div>
+        <a
+          href="https://www.youtube.com/watch?v=4N1iwQxiHrs"
+          target="_blank"
+          rel="noopener noreferrer"
+          title="goes to music"
+          className="text-blue-400 hover:underline"
+        >
+          Original Video
+        </a>
 
-          {session?.user && <LatestPost />}
-        </div>
-      </main>
-    </HydrateClient>
+        <br />
+        <br />
+
+        <a
+          href="https://www.youtube.com/watch?v=4N1iwQxiHrs"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="block my-4"
+        >
+          {/* Caminho relativo à pasta 'public' */}
+          <Image
+            src="/imagem/album_art.jpeg"
+            alt="album art"
+            width={200}
+            height={200}
+            className="rounded-lg shadow-lg"
+          />
+        </a>
+
+        <br />
+
+        <audio controls className="w-full md:w-auto">
+          {/* Caminho relativo à pasta 'public' */}
+          <source src="/audio/the_outfield_your_love_mp3_3044.mp3" type="audio/mpeg" />
+          Seu navegador não suporta o elemento de áudio.
+        </audio>
+
+        <hr className="my-8 border-gray-700" />
+
+        <br />
+
+        <pre className="text-gray-300 whitespace-pre-wrap leading-relaxed font-sans text-lg">
+          {`Josie's on a vacation far away
+Come around and talk it over
+So many things that I wanna say
+You know I like my girls a little bit older
+
+I just wanna use your love tonight
+I don't wanna lose your love tonight
+
+I ain't got many friends left to talk to
+Nowhere to run when I'm in trouble
+You know I'd do anything for you
+Stay the night but keep it undercover
+
+I just wanna use your love tonight, oh
+I don't wanna lose your love tonight
+
+Try to stop my hands from shaking
+But something in my mind's not making sense
+It's been a while since we've been all alone
+I can't hide the way I'm feeling
+
+As you're leaving, please, would you close the door?
+And don't forget what I told you
+Just 'cause you're right, that don't mean I'm wrong
+Another shoulder to cry upon
+
+I just wanna use your love tonight, yeah
+I don't wanna lose your love tonight, yeah
+
+I just wanna use your love tonight
+I don't wanna lose your love tonight
+
+I just wanna use your love tonight
+I don't wanna lose your love tonight
+
+(Use your love, lose your love)
+Your love (use your love)
+Well, I don't wanna lose (lose your—, tonight)
+I don't wanna, I don't wanna, I don't wanna lose (use your—, tonight)
+Your love (lose your—, tonight)
+Your love, your love (use your—, tonight)
+Your love (I don't wanna lose your love tonight)
+(Use your—, tonight)`}
+        </pre>
+      </div>
+    </div>
   );
 }
