@@ -1,21 +1,35 @@
-import Link from "next/link";
+import { Music } from "lucide-react";
 
-export default function Navbar() {
+export const Navbar = () => {
   return (
-    <nav className="bg-gray-800 text-white p-4">
-      <div className="container mx-auto flex justify-between items-center">
-        <Link href="/" className="text-xl font-bold">
-          My Song Lyrics
-        </Link>
-        <div className="space-x-4">
-          <Link href="/" className="hover:text-gray-300">
+    <nav className="w-full glass-card border-b border-white/10 px-6 py-4">
+      <div className="max-w-7xl mx-auto flex items-center justify-between">
+        <div className="flex items-center gap-2">
+          <Music className="w-6 h-6 text-primary" />
+          <span className="text-xl font-bold gradient-text">Music Player</span>
+        </div>
+
+        <div className="flex items-center gap-6">
+          <a
+            href="/"
+            className="text-foreground hover:text-primary transition-colors"
+          >
             Home
-          </Link>
-          <Link href="#" className="hover:text-gray-300">
+          </a>
+          <a
+            href="/playlist"
+            className="text-muted-foreground hover:text-primary transition-colors"
+          >
+            Playlist
+          </a>
+          <a
+            href="/about"
+            className="text-muted-foreground hover:text-primary transition-colors"
+          >
             About
-          </Link>
+          </a>
         </div>
       </div>
     </nav>
   );
-}
+};
